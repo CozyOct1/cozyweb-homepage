@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cozy - AI Application Engineer</title>
+  <title>Cozy</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/android/mipmap-xxxhdpi/ic_launcher.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/android/mipmap-mdpi/ic_launcher.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/assets/icons/android/mipmap-xxxhdpi/ic_launcher.png">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+ATF:wght@400;500;600;700&display=swap');
+    @font-face {
+      font-family: 'FreePixel';
+      src: url('/assets/FreePixel.ttf') format('truetype');
+      font-weight: 100 900;
+      font-display: swap;
+    }
 
     * {
       margin: 0;
@@ -31,7 +39,7 @@
                   radial-gradient(ellipse at 70% 80%, rgba(15, 25, 60, 0.3) 0%, transparent 50%),
                   radial-gradient(ellipse at 50% 50%, #0d1229 0%, #060b18 100%);
       color: var(--text-primary);
-      font-family: 'Shippori Mincho ATF', serif;
+      font-family: 'FreePixel', monospace;
       width: 100vw;
       overflow: hidden;
     }
@@ -68,7 +76,7 @@
       left: 0;
       z-index: 10;
       text-align: left;
-      font-family: 'Shippori Mincho ATF', serif;
+      font-family: 'FreePixel', monospace;
       pointer-events: none;
       padding-left: clamp(2rem, 5vw, 4.5rem);
       transition: opacity 0.7s ease, transform 0.8s ease;
@@ -87,7 +95,7 @@
       color: rgba(239, 236, 228, 0.55);
       text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
       opacity: 0;
-      animation: fadeSlideIn 0.8s ease-out 0.5s forwards;
+      animation: fadeSlideIn 2.0s ease-out 3.0s forwards;
     }
 
     .name-title {
@@ -183,7 +191,7 @@
     }
 
     .page-nav-label {
-      font-family: 'Shippori Mincho ATF', serif;
+      font-family: 'FreePixel', monospace;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -264,7 +272,7 @@
     }
 
     .drag-hint span {
-      font-family: 'Shippori Mincho ATF', serif;
+      font-family: 'FreePixel', monospace;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -295,6 +303,10 @@
       transition: opacity 0.8s ease 0.1s, transform 0.9s ease 0.1s;
     }
 
+    .map-overlay.exiting {
+      transition: opacity 0.24s ease, transform 0.3s ease;
+    }
+
     .map-overlay.visible {
       opacity: 1;
       transform: translateY(0);
@@ -302,16 +314,17 @@
 
     .map-overlay .map-title {
       position: absolute;
-      top: clamp(4rem, 10vh, 7rem);
-      left: clamp(2rem, 5vw, 4.5rem);
-      font-family: 'Shippori Mincho ATF', serif;
+      top: clamp(5.5rem, 15vh, 9rem);
+      left: 0;
+      padding-left: clamp(2rem, 5vw, 4.5rem);
+      font-family: 'FreePixel', monospace;
     }
 
     .map-overlay .map-title .eyebrow {
       display: block;
-      font-size: 0.85rem;
+      font-size: 1.00rem;
       font-weight: 400;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: rgba(239, 236, 228, 0.55);
       text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
@@ -319,42 +332,24 @@
 
     .map-overlay .map-title .main {
       display: block;
-      margin-top: 0.9rem;
-      font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+      margin-top: 1.25rem;
+      font-size: clamp(1.8rem, 3.8vw, 3.4rem);
       font-weight: 700;
-      line-height: 1.1;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
       color: #efece4;
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
     }
 
     .map-overlay .map-title .sub {
       display: block;
-      margin-top: 0.6rem;
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      color: rgba(239, 236, 228, 0.7);
+      margin: 1.25rem 0 0 0;
+      font-size: 1.00rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      line-height: 1.9;
+      color: rgba(239, 236, 228, 0.8);
       text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
-    }
-
-    .map-overlay .map-meta {
-      position: absolute;
-      right: clamp(2rem, 5vw, 4.5rem);
-      bottom: clamp(3rem, 8vh, 5rem);
-      text-align: right;
-      font-family: 'Shippori Mincho ATF', serif;
-      color: rgba(239, 236, 228, 0.55);
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
-    }
-
-    .map-overlay .map-meta .coord {
-      display: block;
-      margin-top: 0.5rem;
-      color: rgba(255, 200, 130, 0.85);
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
     }
 
     /* Responsive */
@@ -372,8 +367,10 @@
       }
 
       .map-overlay .map-title {
-        left: 1.5rem;
+        left: 0;
+        padding-left: 1.5rem;
       }
+
     }
 
     @media (min-width: 1024px) {
@@ -381,9 +378,289 @@
         font-size: 0.95rem;
       }
     }
+
+
+
+    /* ============ Loading Screen ============ */
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: radial-gradient(ellipse at 30% 20%, rgba(25, 35, 80, 0.4) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(15, 25, 60, 0.3) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 50%, #0d1229 0%, #060b18 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #loading-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-orbit {
+      position: relative;
+      width: 90px;
+      height: 90px;
+    }
+
+    .loader-orbit .orbit-ring {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(180, 210, 240, 0.12);
+      border-radius: 50%;
+      animation: orbitPulse 3s ease-in-out infinite;
+    }
+
+    .loader-orbit .orbit-ring:nth-child(2) {
+      inset: -14px;
+      border-color: rgba(180, 210, 240, 0.07);
+      animation-delay: 0.4s;
+      animation-duration: 3.4s;
+    }
+
+    .loader-orbit .orbit-ring:nth-child(3) {
+      inset: -28px;
+      border-color: rgba(180, 210, 240, 0.04);
+      animation-delay: 0.8s;
+      animation-duration: 3.8s;
+    }
+
+    @keyframes orbitPulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+
+    .loader-orbit .core-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 24px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 210, 120, 0.95) 0%, rgba(255, 170, 70, 0.5) 40%, rgba(126, 184, 218, 0.15) 70%, transparent 100%);
+      box-shadow: 0 0 20px rgba(255, 190, 90, 0.35),
+                  0 0 50px rgba(126, 184, 218, 0.12);
+      animation: corePulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes corePulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+
+    .loader-orbit .satellite {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      margin: -2.5px 0 0 -2.5px;
+      border-radius: 50%;
+      background: rgba(200, 220, 255, 0.9);
+      box-shadow: 0 0 6px rgba(200, 220, 255, 0.6);
+    }
+
+    .loader-orbit .satellite-1 {
+      animation: orbit1 2.4s linear infinite;
+    }
+
+    .loader-orbit .satellite-2 {
+      animation: orbit2 3.0s linear infinite;
+      width: 3.5px;
+      height: 3.5px;
+      margin: -1.75px 0 0 -1.75px;
+      background: rgba(255, 210, 140, 0.85);
+      box-shadow: 0 0 5px rgba(255, 210, 140, 0.5);
+    }
+
+    .loader-orbit .satellite-3 {
+      animation: orbit3 4.0s linear infinite;
+      width: 2.5px;
+      height: 2.5px;
+      margin: -1.25px 0 0 -1.25px;
+      background: rgba(126, 184, 218, 0.7);
+      box-shadow: 0 0 4px rgba(126, 184, 218, 0.4);
+    }
+
+    @keyframes orbit1 {
+      from { transform: rotate(0deg) translateX(38px) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(38px) rotate(-360deg); }
+    }
+
+    @keyframes orbit2 {
+      from { transform: rotate(120deg) translateX(54px) rotate(-120deg); }
+      to   { transform: rotate(480deg) translateX(54px) rotate(-480deg); }
+    }
+
+    @keyframes orbit3 {
+      from { transform: rotate(240deg) translateX(70px) rotate(-240deg); }
+      to   { transform: rotate(600deg) translateX(70px) rotate(-600deg); }
+    }
+
+    .loader-text {
+      margin-top: 2.5rem;
+      font-family: 'FreePixel', monospace;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(200, 215, 235, 0.45);
+      animation: textPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes textPulse {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 0.8; }
+    }
+
+    .loader-bar-track {
+      margin-top: 1.4rem;
+      width: 120px;
+      height: 1px;
+      background: rgba(180, 210, 240, 0.1);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .loader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(126, 184, 218, 0.6), rgba(255, 210, 140, 0.7));
+      border-radius: 1px;
+      transition: width 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .loader-orbit {
+        width: 70px;
+        height: 70px;
+      }
+      @keyframes orbit1 {
+        from { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+        to   { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+      }
+      @keyframes orbit2 {
+        from { transform: rotate(120deg) translateX(42px) rotate(-120deg); }
+        to   { transform: rotate(480deg) translateX(42px) rotate(-480deg); }
+      }
+      @keyframes orbit3 {
+        from { transform: rotate(240deg) translateX(54px) rotate(-240deg); }
+        to   { transform: rotate(600deg) translateX(54px) rotate(-600deg); }
+      }
+    }
+
+    /* ============ Global Social Icons ============ */
+    .social-icons {
+      position: fixed;
+      right: clamp(1.2rem, 3vw, 2.2rem);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      pointer-events: auto;
+    }
+
+    .social-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(180, 210, 240, 0.15);
+      background: rgba(8, 14, 32, 0.3);
+      backdrop-filter: blur(8px);
+      color: rgba(200, 215, 235, 0.5);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .social-icon:hover {
+      color: rgba(255, 230, 180, 0.95);
+      border-color: rgba(255, 210, 140, 0.5);
+      background: rgba(255, 190, 90, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 190, 90, 0.15);
+    }
+
+    .social-icon svg {
+      width: 17px;
+      height: 17px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .social-icon.github-icon svg {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    .social-icons::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 2rem;
+      background: linear-gradient(to bottom, transparent, rgba(180, 210, 240, 0.2));
+      margin-bottom: 0.4rem;
+    }
+
+    .social-icons::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 2rem;
+      background: linear-gradient(to top, transparent, rgba(180, 210, 240, 0.2));
+      margin-top: 0.4rem;
+    }
+
+
+
+    @media (max-width: 768px) {
+      .social-icons {
+        right: 0.8rem;
+        gap: 0.9rem;
+      }
+      .social-icon {
+        width: 32px;
+        height: 32px;
+      }
+      .social-icon svg {
+        width: 14px;
+        height: 14px;
+      }
+
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader-orbit">
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="core-glow"></div>
+      <div class="satellite satellite-1"></div>
+      <div class="satellite satellite-2"></div>
+      <div class="satellite satellite-3"></div>
+    </div>
+    <span class="loader-text">Initializing</span>
+    <div class="loader-bar-track">
+      <div class="loader-bar-fill" id="loader-bar-fill"></div>
+    </div>
+  </div>
+
   <canvas id="globe-canvas"></canvas>
 
   <!-- Page 1: Globe -->
@@ -392,7 +669,7 @@
       <div class="intro-section">
         <h1>
           <span class="role-label">AI Application Engineer</span>
-          <span class="name-title">Nie Wenjie (Cozy)</span>
+          <span class="name-title">Cozy</span>
         </h1>
         <ul class="focus-areas">
           <li><span class="keyword">RAG</span></li>
@@ -401,6 +678,7 @@
           <li><span class="slash">/</span><span class="keyword">Agent</span></li>
           <li><span class="slash">/</span><span class="keyword">Application</span></li>
         </ul>
+
       </div>
     </div>
 
@@ -418,22 +696,34 @@
       </div>
       <span>Drag to rotate</span>
     </div>
+
+
+
   </section>
 
   <!-- Page 2: China Map -->
   <section class="page-section" id="page-2">
     <div class="map-overlay" id="map-overlay">
       <div class="map-title">
-        <span class="eyebrow">Hometown · Anhui</span>
+        <span class="eyebrow">First Location</span>
         <span class="main">Fuyang, Anhui</span>
-        <span class="sub">阜 阳 · 安 徽</span>
+        <span class="sub">32.89°N, 115.81°E</span>
       </div>
-      <div class="map-meta">
-        <span>32.89° N&nbsp;&nbsp;·&nbsp;&nbsp;115.81° E</span>
-        <span class="coord">FUYANG / CHINA</span>
-      </div>
+      <!-- profile-card removed -->
     </div>
   </section>
+
+  
+
+  <!-- Global Social Icons -->
+  <div class="social-icons" id="social-icons">
+    <a class="social-icon github-icon" href="https://github.com/CozyOct1" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+    </a>
+    <a class="social-icon" href="mailto:zju_nwj@foxmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+    </a>
+  </div>
 
   <nav class="page-nav" aria-label="Page navigation">
     <button class="page-nav-button" id="page-up-button" type="button" aria-label="Previous page" disabled>
@@ -447,11 +737,44 @@
 
   <script>
     (() => {
+      // Loading screen logic
+      const loadingScreen = document.getElementById('loading-screen');
+      const loaderBarFill = document.getElementById('loader-bar-fill');
+      const loaderText = loadingScreen.querySelector('.loader-text');
+      let loadingProgress = 0;
+      let dataLoaded = false;
+
+      function updateLoadingBar(progress) {
+        loadingProgress = progress;
+        if (loaderBarFill) loaderBarFill.style.width = progress + '%';
+      }
+
+      function hideLoadingScreen() {
+        if (!loadingScreen) return;
+        updateLoadingBar(100);
+        if (loaderText) loaderText.textContent = 'Ready';
+        setTimeout(() => {
+          loadingScreen.classList.add('fade-out');
+          loadingScreen.addEventListener('transitionend', () => {
+            loadingScreen.remove();
+          }, { once: true });
+          // Fallback removal if transitionend doesn't fire
+          setTimeout(() => {
+            if (loadingScreen.parentNode) loadingScreen.remove();
+          }, 1200);
+        }, 300);
+      }
+
+      // Simulate initial progress while fonts/resources load
+      updateLoadingBar(10);
+
       const canvas = document.getElementById('globe-canvas');
       const ctx = canvas.getContext('2d');
       const dragHintEl = document.getElementById('drag-hint');
       const contentOverlay = document.getElementById('content-overlay');
       const mapOverlay = document.getElementById('map-overlay');
+      
+
       const pageUpButton = document.getElementById('page-up-button');
       const pageDownButton = document.getElementById('page-down-button');
       const pageNavLabel = document.getElementById('page-nav-label');
@@ -493,6 +816,8 @@
       let provinceOutlines = [];
       let anhuiOutlines = [];
       let highlightedCityProvinceOutlines = [];
+      let cityOutlines = [];
+      let fuyangCityOutlines = [];
 
       // ===== Page transition state =====
       // progress: 0 = full globe (page 1), 1 = flat China map (page 2)
@@ -514,11 +839,12 @@
       };
 
       // China geographic bounds (approx) for flat-projection target
+      // Zoomed into Fuyang, Anhui region
       const CHINA_BOUNDS = {
-        minLon:  73.5,
-        maxLon: 135.0,
-        minLat:  18.0,
-        maxLat:  53.6
+        minLon:  115.0,
+        maxLon:  120.0,
+        minLat:  30.0,
+        maxLat:  38.0
       };
       const CHINA_CENTER_LAT = (CHINA_BOUNDS.minLat + CHINA_BOUNDS.maxLat) / 2;
       const CHINA_CENTER_LON = (CHINA_BOUNDS.minLon + CHINA_BOUNDS.maxLon) / 2;
@@ -534,7 +860,16 @@
       const HIGHLIGHT_PROVINCE_ADCODES = new Set(['110000', '310000', '330000', '340000']);
 
       // Focus city on flat map (page 2)
-      const focusCity = { name: '阜阳', enName: 'Fuyang, Anhui', region: '安徽 · 中国', lat: 32.89, lon: 115.81 };
+      const focusCity = { name: '阜阳', enName: 'Fuyang', lat: 32.89, lon: 115.81 };
+
+      // Castle marker cities on flat map (page 2) — exclude Fuyang (has NPC)
+      const castleCities = [
+        { name: '合肥', enName: 'Hefei',   lat: 31.82, lon: 117.25 },
+        { name: '杭州', enName: 'Hangzhou', lat: 30.27, lon: 120.15 },
+        { name: '上海', enName: 'Shanghai', lat: 31.27, lon: 121.52 },
+        { name: '通州', enName: 'Tongzhou', lat: 39.90, lon: 116.66 }
+      ];
+      
 
       // Starfield
       const stars = [];
@@ -603,6 +938,8 @@
 
       function onPointerDown(e) {
         if (progress > 0.05) return; // disable drag on map page
+        // Don't start drag if clicking on interactive elements (tech-tag links, social icons, nav buttons)
+        if (e.target.closest('.social-icon, .page-nav-button')) return;
         isDragging = true;
         const p = getEventPoint(e);
         lastPointerX = p.x;
@@ -637,51 +974,164 @@
       window.addEventListener('touchend', onPointerUp);
       window.addEventListener('touchcancel', onPointerUp);
 
+      // ===== NPC Click Handler =====
+      function handleNpcClick(e) {
+        // Only handle clicks on page 2
+        if (progress < 0.5) return;
+
+        let clickX, clickY;
+        if (e.touches && e.touches.length > 0) {
+          clickX = e.touches[0].clientX;
+          clickY = e.touches[0].clientY;
+        } else if (e.changedTouches && e.changedTouches.length > 0) {
+          clickX = e.changedTouches[0].clientX;
+          clickY = e.changedTouches[0].clientY;
+        } else {
+          clickX = e.clientX;
+          clickY = e.clientY;
+        }
+
+        // Check if click is within NPC hitbox (generous area)
+        const hitPad = 16;
+        const npcLeft = npcScreenX - npcDrawW / 2 - hitPad;
+        const npcRight = npcScreenX + npcDrawW / 2 + hitPad;
+        const npcTop = npcScreenY - npcDrawH / 2 - hitPad - 50; // extend up for bubble area
+        const npcBottom = npcScreenY + npcDrawH / 2 + hitPad + 16;
+
+        if (clickX >= npcLeft && clickX <= npcRight && clickY >= npcTop && clickY <= npcBottom) {
+          e.preventDefault();
+          e.stopPropagation();
+          const now = performance.now();
+          // Debounce: ignore rapid clicks
+          if (now - npcLastClickTime < 400) return;
+          npcLastClickTime = now;
+
+          // Advance dialog
+          npcDialogIndex++;
+          npcDialogAlpha = 0; // reset fade-in
+          if (npcDialogIndex >= npcDialogMessages.length) {
+            // Loop back to start
+            npcDialogIndex = 0;
+          }
+        }
+      }
+
+      canvas.addEventListener('click', handleNpcClick);
+      canvas.addEventListener('touchend', handleNpcClick);
+
       // ===== Page controls: drives page 1 -> page 2 transition =====
+      const TOTAL_PAGES = 2;
       let currentPage = 0;
       let visualPage = 0;
 
+      // Map page index to progress: 0→0 (globe), 1→1 (flat map)
+      function pageToProgress(page) { return page; }
+
+      // ===== NPC Dialog State (must be before updatePageUI) =====
+      let npcDialogIndex = -1; // -1 = blank bubble, 0+ = dialog messages
+      let npcDialogAlpha = 0;
+      let npcDialogTargetAlpha = 1;
+      let npcLastClickTime = 0;
+      let npcScreenX = 0;
+      let npcScreenY = 0;
+      let npcDrawW = 48;
+      let npcDrawH = 48;
+      const npcDialogMessages = [
+        () => "I'm Cozy",
+        () => 'Born in October 2002',
+        () => 'From Fuyang, Anhui',
+        () => 'Han Chinese',
+        () => 'Probationary CPC Member'
+      ];
+
       function updatePageUI() {
-        const showingMap = visualPage === 1;
-        if (showingMap) {
+        const isGlobe = visualPage === 0;
+        const isMap = visualPage === 1;
+
+        if (isGlobe) {
+          contentOverlay.style.opacity = '';
+          contentOverlay.style.transform = '';
+
+          canvas.style.cursor = 'grab';
+          mapOverlay.classList.remove('exiting');
+          mapOverlay.classList.remove('visible');
+          // Reset NPC dialog when leaving page 2
+          npcDialogIndex = -1;
+          npcDialogAlpha = 0;
+        } else {
           contentOverlay.style.opacity = '0';
           contentOverlay.style.transform = 'translateY(-18px)';
           if (dragHintEl) dragHintEl.style.opacity = '0';
-          mapOverlay.classList.add('visible');
-        } else {
-          contentOverlay.style.opacity = '';
-          contentOverlay.style.transform = '';
-          if (dragHintEl && !hasInteracted) dragHintEl.style.opacity = '';
-          mapOverlay.classList.remove('visible');
+
+          canvas.style.cursor = 'pointer';
+
+          if (transitionDirection < 0) {
+            mapOverlay.classList.add('exiting');
+            mapOverlay.classList.remove('visible');
+          } else {
+            mapOverlay.classList.remove('exiting');
+            mapOverlay.classList.add('visible');
+          }
+
+          hasInteracted = true;
+          if (dragHintEl) dragHintEl.classList.add('hidden');
         }
 
         if (pageUpButton) pageUpButton.disabled = currentPage === 0;
-        if (pageDownButton) pageDownButton.disabled = currentPage === 1;
-        if (pageNavLabel) pageNavLabel.textContent = currentPage === 1 ? 'Page 2' : 'Page 1';
+        if (pageDownButton) pageDownButton.disabled = currentPage === TOTAL_PAGES - 1;
+        if (pageNavLabel) pageNavLabel.textContent = 'Page ' + (currentPage + 1);
       }
 
       function goToPage(page) {
-        const nextPage = clamp(page, 0, 1);
+        const nextPage = clamp(page, 0, TOTAL_PAGES - 1);
         if (nextPage === currentPage) return;
         transitionDirection = nextPage > currentPage ? 1 : -1;
         currentPage = nextPage;
-        targetProgress = currentPage;
-        if (transitionDirection > 0) visualPage = 1;
+        targetProgress = pageToProgress(currentPage);
+        if (transitionDirection > 0) visualPage = currentPage;
         updatePageUI();
       }
 
-      if (pageUpButton) pageUpButton.addEventListener('click', () => goToPage(0));
-      if (pageDownButton) pageDownButton.addEventListener('click', () => goToPage(1));
+      if (pageUpButton) pageUpButton.addEventListener('click', () => goToPage(currentPage - 1));
+      if (pageDownButton) pageDownButton.addEventListener('click', () => goToPage(currentPage + 1));
       window.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
           e.preventDefault();
-          goToPage(1);
+          goToPage(currentPage + 1);
         } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
           e.preventDefault();
-          goToPage(0);
+          goToPage(currentPage - 1);
         }
       });
+
+      // Scroll wheel page navigation with debounce
+      let wheelCooldown = false;
+      window.addEventListener('wheel', (e) => {
+        if (wheelCooldown) return;
+        if (Math.abs(e.deltaY) < 30) return; // ignore small scrolls
+        wheelCooldown = true;
+        if (e.deltaY > 0) {
+          goToPage(currentPage + 1);
+        } else {
+          goToPage(currentPage - 1);
+        }
+        setTimeout(() => { wheelCooldown = false; }, 1200);
+      }, { passive: true });
+
       updatePageUI();
+
+      // ===== Auto-calculate age =====
+      (() => {
+        const birthYear = 2002;
+        const birthMonth = 10; // October
+        const now = new Date();
+        let age = now.getFullYear() - birthYear;
+        if (now.getMonth() + 1 < birthMonth || (now.getMonth() + 1 === birthMonth && now.getDate() < 1)) {
+          age--;
+        }
+        // Store age for NPC dialog
+        window.__cozyAge = age;
+      })();
 
       // ===== 3D math helpers =====
       function rotateY(x, y, z, angle) {
@@ -706,7 +1156,7 @@
         };
       }
 
-      // ===== Core projection: blends sphere -> flat-china map =====
+      // ===== Core projection: blends sphere -> flat world map =====
       // Returns { x, y, visible, frontness }
       // - frontness: 1 = fully on front of globe, 0 = back
       // - On flat map (progress=1) frontness is forced to 1
@@ -813,7 +1263,58 @@
         return { provinces, anhui, highlighted };
       }
 
+      function processCityGeoJSON(data) {
+        const cities = [];
+        const fuyang = [];
+        for (const feature of data.features || []) {
+          const geom = feature.geometry;
+          if (!geom) continue;
+          const props = feature.properties || {};
+          const name = String(props.name || '');
+          const adcode = String(props.adcode || '');
+          const level = String(props.level || '');
+          // Only process city-level features
+          if (level !== 'city') continue;
+          const isFuyang = name.includes('阜阳') || adcode === '341200';
+
+          const processRing = (ring) => {
+            const pts = [];
+            for (const coord of ring) pts.push({ lon: coord[0], lat: coord[1] });
+            if (pts.length > 1) {
+              cities.push(pts);
+              if (isFuyang) fuyang.push(pts);
+            }
+          };
+
+          if (geom.type === 'Polygon') {
+            for (const ring of geom.coordinates) processRing(ring);
+          } else if (geom.type === 'MultiPolygon') {
+            for (const polygon of geom.coordinates) for (const ring of polygon) processRing(ring);
+          }
+        }
+        return { cities, fuyang };
+      }
+
+      // ===== NPC Sprite Sheet =====
+      const npcImg = new Image();
+      npcImg.src = '/assets/IttyBitty NPC 4.png';
+      let npcReady = false;
+      npcImg.onload = () => { npcReady = true; };
+
+      const FRAME_W = 16;
+      const FRAME_H = 16;
+      const CHARS_PER_ROW = 5;
+      const CHAR_INDEX = 5; // Second row, first character
+      const CHAR_COL = CHAR_INDEX % CHARS_PER_ROW; // 0
+      const CHAR_ROW = Math.floor(CHAR_INDEX / CHARS_PER_ROW); // 1
+      const CHAR_BASE_X = CHAR_COL * 48; // 0
+      const CHAR_BASE_Y = CHAR_ROW * 64; // 64
+      const WALK_FRAMES = [0, 1, 2, 1]; // left-foot, stand, right-foot, stand
+      let walkIndex = 0;
+      let walkTimer = 0;
+
       async function loadGeoData() {
+        updateLoadingBar(15);
         await new Promise((resolve, reject) => {
           const script = document.createElement('script');
           script.src = '/assets/topojson-client.min.js';
@@ -821,6 +1322,7 @@
           script.onerror = reject;
           document.head.appendChild(script);
         });
+        updateLoadingBar(30);
         try {
           const resp = await fetch('/assets/countries-50m.json');
           const topo = await resp.json();
@@ -828,6 +1330,7 @@
           const result = processGeoJSON(geojson);
           countryOutlines = result.outlines;
           chinaOutlines = result.china;
+          updateLoadingBar(60);
         } catch (e) {
           console.warn('50m failed, falling back to 110m...', e);
           try {
@@ -837,6 +1340,7 @@
             const result = processGeoJSON(geojson);
             countryOutlines = result.outlines;
             chinaOutlines = result.china;
+            updateLoadingBar(60);
           } catch (e2) {
             console.error('Failed to load map data', e2);
           }
@@ -849,8 +1353,20 @@
           provinceOutlines = result.provinces;
           anhuiOutlines = result.anhui;
           highlightedCityProvinceOutlines = result.highlighted;
+          updateLoadingBar(85);
         } catch (e) {
           console.warn('Failed to load China province boundaries', e);
+        }
+
+        try {
+          const resp = await fetch('/assets/china-cities-full.json');
+          const geojson = await resp.json();
+          const result = processCityGeoJSON(geojson);
+          cityOutlines = result.cities;
+          fuyangCityOutlines = result.fuyang;
+          updateLoadingBar(92);
+        } catch (e) {
+          console.warn('Failed to load China city boundaries', e);
         }
       }
 
@@ -922,10 +1438,10 @@
         const t = progress;
         const e = transitionEase();
         // Outer glow stronger when flat
-        const glowAlpha = lerp(0.25, 0.55, e);
-        const glowWidth = lerp(3.5, 6.0, e);
-        const innerAlpha = lerp(0.85, 0.98, e);
-        const innerWidth = lerp(1.5, 2.0, e);
+        const glowAlpha = lerp(0.25, 0.30, e);
+        const glowWidth = lerp(3.5, 4.5, e);
+        const innerAlpha = lerp(0.85, 0.65, e);
+        const innerWidth = lerp(1.5, 1.5, e);
 
         for (const outline of chinaOutlines) {
           drawBlendedLine(outline, ctxRef, {
@@ -946,7 +1462,7 @@
       function drawProvinceOutlines(ctxRef) {
         if (progress < 0.24 || provinceOutlines.length === 0) return;
         const appear = smoothRange(0.24, 0.76, progress);
-        const baseAlpha = 0.22 * appear;
+        const baseAlpha = 0.10 * appear;
 
         for (const outline of provinceOutlines) {
           drawBlendedLine(outline, ctxRef, {
@@ -1030,6 +1546,165 @@
         }
       }
 
+      function drawCityOutlines(ctxRef) {
+        if (progress < 0.38 || cityOutlines.length === 0) return;
+        const appear = smoothRange(0.38, 0.82, progress);
+        const baseAlpha = 0.38 * appear;
+
+        for (const outline of cityOutlines) {
+          drawBlendedLine(outline, ctxRef, {
+            color: 'rgba(150, 210, 245, ALPHA)',
+            lineWidth: 1.2,
+            frontAlpha: baseAlpha,
+            backAlpha: 0,
+            drawBack: false
+          });
+        }
+      }
+
+      function drawFuyangCityHighlight(ctxRef) {
+        // Show on page 2 (progress > 0.42)
+        if (progress < 0.42 || fuyangCityOutlines.length === 0) return;
+        const appear = smoothRange(0.42, 0.88, progress);
+        if (appear < 0.01) return;
+        const time = performance.now() * 0.001;
+        const pulse = 0.72 + 0.28 * Math.sin(time * 2.4);
+
+        for (const outline of fuyangCityOutlines) {
+          drawBlendedLine(outline, ctxRef, {
+            color: 'rgba(255, 160, 60, ALPHA)',
+            lineWidth: 6.0,
+            frontAlpha: 0.16 * appear * pulse,
+            backAlpha: 0,
+            drawBack: false
+          });
+          drawBlendedLine(outline, ctxRef, {
+            color: 'rgba(255, 200, 110, ALPHA)',
+            lineWidth: 1.6,
+            frontAlpha: 0.85 * appear,
+            backAlpha: 0,
+            drawBack: false
+          });
+          drawBlendedLine(outline, ctxRef, {
+            color: 'rgba(255, 240, 200, ALPHA)',
+            lineWidth: 0.6,
+            frontAlpha: 0.80 * appear,
+            backAlpha: 0,
+            drawBack: false
+          });
+        }
+      }
+
+      // ===== Pixel Castle Icon =====
+      // Draws a tiny 8x10 pixel-art castle icon at (x, y) using filled rects
+      // Pixel size = ps, alpha multiplier = vis
+      function drawCastleIcon(x, y, ps, vis) {
+        const a = vis;
+        // Color palette
+        const wall   = `rgba(160, 180, 210, ${a.toFixed(3)})`;
+        const tower  = `rgba(120, 145, 185, ${a.toFixed(3)})`;
+        const roof   = `rgba(255, 200, 120, ${a.toFixed(3)})`;
+        const window = `rgba(255, 210, 140, ${(a * 0.8).toFixed(3)})`;
+        const gate   = `rgba(60, 50, 40, ${(a * 0.9).toFixed(3)})`;
+        const flag   = `rgba(255, 100, 80, ${a.toFixed(3)})`;
+
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+
+        // Left tower (2w x 5h)
+        ctx.fillStyle = tower;
+        ctx.fillRect(x - 4*ps, y - 9*ps, 2*ps, 5*ps);
+        ctx.fillStyle = roof;
+        ctx.fillRect(x - 5*ps, y - 10*ps, 4*ps, 1*ps);
+        ctx.fillStyle = flag;
+        ctx.fillRect(x - 4*ps, y - 12*ps, 1*ps, 2*ps);
+
+        // Right tower (2w x 5h)
+        ctx.fillStyle = tower;
+        ctx.fillRect(x + 2*ps, y - 9*ps, 2*ps, 5*ps);
+        ctx.fillStyle = roof;
+        ctx.fillRect(x + 1*ps, y - 10*ps, 4*ps, 1*ps);
+        ctx.fillStyle = flag;
+        ctx.fillRect(x + 3*ps, y - 12*ps, 1*ps, 2*ps);
+
+        // Main wall (4w x 3h)
+        ctx.fillStyle = wall;
+        ctx.fillRect(x - 2*ps, y - 7*ps, 4*ps, 3*ps);
+
+        // Battlement tops on wall (3 blocks)
+        ctx.fillStyle = wall;
+        ctx.fillRect(x - 2*ps, y - 8*ps, 1*ps, 1*ps);
+        ctx.fillRect(x,         y - 8*ps, 1*ps, 1*ps);
+        ctx.fillRect(x + 2*ps,  y - 8*ps, 1*ps, 1*ps);
+
+        // Windows (center tower, 2 tiny windows)
+        ctx.fillStyle = window;
+        ctx.fillRect(x - 1*ps, y - 6*ps, 1*ps, 1*ps);
+        ctx.fillRect(x + 1*ps, y - 6*ps, 1*ps, 1*ps);
+
+        // Tower windows (left & right)
+        ctx.fillStyle = window;
+        ctx.fillRect(x - 4*ps, y - 8*ps, 1*ps, 1*ps);
+        ctx.fillRect(x + 2*ps, y - 8*ps, 1*ps, 1*ps);
+
+        // Gate arch (2w x 2h)
+        ctx.fillStyle = gate;
+        ctx.fillRect(x - 1*ps, y - 4*ps, 2*ps, 2*ps);
+
+        // Ground shadow
+        ctx.fillStyle = `rgba(0, 0, 0, ${(a * 0.2).toFixed(3)})`;
+        ctx.fillRect(x - 5*ps, y, 10*ps, 1*ps);
+
+        ctx.restore();
+      }
+
+      // Draw castle markers for each city on the flat map (page 2)
+      function drawCityCastles(ctxRef) {
+        const t = progress;
+        if (t < 0.42) return;
+        const appear = smoothRange(0.42, 0.88, t);
+        if (appear < 0.01) return;
+        const { cx, cy, radius, mapScale, mapCx, mapCy } = ctxRef;
+        const time = performance.now() * 0.001;
+
+        const ps = 3.0; // pixel size for castle
+
+        for (const city of castleCities) {
+          const proj = projectPoint(city.lat, city.lon, cx, cy, radius, mapScale, mapCx, mapCy);
+          if (proj.frontness <= 0.05) continue;
+          const px = proj.x;
+          const py = proj.y;
+          const vis = appear * proj.frontness;
+          if (vis < 0.05) continue;
+
+          // Gentle bob animation
+          const bob = Math.sin(time * 2.0 + city.lat * 10) * 1.5 * vis;
+
+          // Small glow under castle
+          const glowR = 14;
+          const grd = ctx.createRadialGradient(px, py + bob, 0, px, py + bob, glowR);
+          grd.addColorStop(0, `rgba(120, 180, 255, ${(0.25 * vis).toFixed(3)})`);
+          grd.addColorStop(1, 'rgba(120, 180, 255, 0)');
+          ctx.beginPath();
+          ctx.arc(px, py + bob, glowR, 0, Math.PI * 2);
+          ctx.fillStyle = grd;
+          ctx.fill();
+
+          // Draw castle icon
+          drawCastleIcon(px, py + bob, ps, vis);
+
+          // City name label
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+          ctx.shadowBlur = 6;
+          ctx.font = `600 11px "FreePixel", monospace`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillStyle = `rgba(180, 210, 240, ${(0.85 * vis).toFixed(3)})`;
+          ctx.fillText(city.enName, px, py + 4*ps + bob);
+          ctx.shadowBlur = 0;
+        }
+      }
+
       // Draw page-1 highlight cities. Fade out as progress increases.
       function drawCityPoints(ctxRef) {
         const t = progress;
@@ -1075,7 +1750,7 @@
             const labelY = ey - 8;
             const align = dx >= 0 ? 'left' : 'right';
             const tx = dx >= 0 ? ex - tailLen + labelPadX : ex - tailLen - labelPadX;
-            ctx.font = '600 16px "Shippori Mincho ATF", serif';
+            ctx.font = '600 16px "FreePixel", monospace';
             ctx.textAlign = align;
             ctx.textBaseline = 'alphabetic';
             ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
@@ -1110,11 +1785,12 @@
         }
       }
 
-      // Draw the focus city (Fuyang) on the map page. Fades in with progress.
+      // Draw the focus city (Fuyang) on page 2. Fades in with progress.
       function drawFocusCity(ctxRef) {
         const t = progress;
         if (t < 0.36) return;
         const appear = smoothRange(0.36, 0.82, t);
+        if (appear < 0.01) return;
         const { cx, cy, radius, mapScale, mapCx, mapCy } = ctxRef;
         const proj = projectPoint(focusCity.lat, focusCity.lon, cx, cy, radius, mapScale, mapCx, mapCy);
         const p = { x: proj.x, y: proj.y };
@@ -1152,48 +1828,210 @@
         ctx.fillStyle = `rgba(255, 245, 220, ${appear.toFixed(3)})`;
         ctx.fill();
 
-        // Leader + label only when mostly flat
-        if (appear > 0.4) {
-          const labelAppear = clamp((appear - 0.4) / 0.6, 0, 1);
-          const dx = 70, dy = -85;
-          const ex = p.x + dx;
-          const ey = p.y + dy;
-          const tailLen = 110;
-          const tx2 = ex + tailLen;
 
-          ctx.strokeStyle = `rgba(255, 210, 140, ${(0.85 * labelAppear).toFixed(3)})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(p.x + 6, p.y - 6);
-          ctx.lineTo(ex, ey);
-          ctx.lineTo(tx2, ey);
-          ctx.stroke();
+      }
 
-          ctx.beginPath();
-          ctx.arc(ex, ey, 2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 230, 180, ${labelAppear.toFixed(3)})`;
-          ctx.fill();
+      
 
-          ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-          ctx.shadowBlur = 10;
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'alphabetic';
-          ctx.font = '700 22px "Shippori Mincho ATF", serif';
-          ctx.fillStyle = `rgba(255, 245, 215, ${labelAppear.toFixed(3)})`;
-          ctx.fillText(focusCity.enName, ex + 10, ey - 8);
+      // Draw animated pixel NPC sprite at Fuyang on page 2
+      function drawHighlightCityIcons(ctxRef) {
+        const t = progress;
+        if (t < 0.36) return;
+        const appear = smoothRange(0.36, 0.82, t);
+        if (appear < 0.01) return;
+        if (!npcReady) return;
+        const { cx, cy, radius, mapScale, mapCx, mapCy } = ctxRef;
+        const time = performance.now() * 0.001;
 
-          ctx.font = '500 12px "Shippori Mincho ATF", serif';
-          ctx.fillStyle = `rgba(255, 220, 170, ${(0.8 * labelAppear).toFixed(3)})`;
-          ctx.fillText(focusCity.region, ex + 10, ey + 12);
+        // Only draw for Fuyang
+        const city = focusCity;
+        const proj = projectPoint(city.lat, city.lon, cx, cy, radius, mapScale, mapCx, mapCy);
+        if (proj.frontness <= 0) return;
+        const px = proj.x;
+        const py = proj.y;
+        const vis = appear * proj.frontness;
+        if (vis < 0.05) return;
 
-          ctx.shadowBlur = 0;
+        // Walk animation timing
+        walkTimer += 1;
+        if (walkTimer % 9 === 0) {
+          walkIndex = (walkIndex + 1) % WALK_FRAMES.length;
         }
+        const frame = WALK_FRAMES[walkIndex];
+
+        // Direction: down (front-facing)
+        const dirRow = 0;
+
+        // Source coordinates in sprite sheet
+        const sx = CHAR_BASE_X + frame * FRAME_W;
+        const sy = CHAR_BASE_Y + dirRow * FRAME_H;
+
+        // Draw scale (16x16 -> 48x48 for visibility)
+        const drawScale = 3.0;
+        const drawW = FRAME_W * drawScale;
+        const drawH = FRAME_H * drawScale;
+
+        // Bob animation
+        const bobY = Math.sin(time * 2.8) * 2.5 * vis;
+
+        // Store NPC screen position for click detection
+        npcScreenX = px;
+        npcScreenY = py - drawH / 2 + bobY;
+        npcDrawW = drawW;
+        npcDrawH = drawH;
+
+        // Dialog alpha animation
+        npcDialogAlpha += (npcDialogTargetAlpha - npcDialogAlpha) * 0.12;
+
+        ctx.save();
+        ctx.globalAlpha = vis;
+
+        // Glow under NPC
+        const glowR = 24;
+        const grd = ctx.createRadialGradient(px, py, 0, px, py, glowR);
+        grd.addColorStop(0, 'rgba(255, 200, 100, 0.35)');
+        grd.addColorStop(0.5, 'rgba(255, 160, 60, 0.12)');
+        grd.addColorStop(1, 'rgba(255, 120, 30, 0)');
+        ctx.beginPath();
+        ctx.arc(px, py, glowR, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+
+        // Disable smoothing for pixel-perfect rendering
+        const prevSmoothing = ctx.imageSmoothingEnabled;
+        ctx.imageSmoothingEnabled = false;
+
+        // Draw the sprite frame
+        ctx.drawImage(
+          npcImg,
+          sx, sy, FRAME_W, FRAME_H,
+          px - drawW / 2, py - drawH + bobY, drawW, drawH
+        );
+
+        // Restore smoothing
+        ctx.imageSmoothingEnabled = prevSmoothing;
+
+        // Name label below NPC
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+        ctx.shadowBlur = 6;
+        ctx.font = '600 13px "FreePixel", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = 'rgba(255, 240, 210, 0.9)';
+        ctx.fillText('Fuyang, Anhui', px, py + 4 + bobY);
+        ctx.shadowBlur = 0;
+
+        // ===== Speech Bubble (Chat Bubble Shape) =====
+        // Determine the text content to measure width
+        const fontSize = 19;
+        ctx.font = `600 ${fontSize}px "FreePixel", monospace`;
+        let bubbleText = '';
+        if (npcDialogIndex >= 0 && npcDialogIndex < npcDialogMessages.length) {
+          bubbleText = npcDialogMessages[npcDialogIndex]();
+        }
+
+        // Measure text width for auto-sizing
+        const textMetrics = ctx.measureText(bubbleText);
+        const textWidth = textMetrics.width;
+        const paddingX = 22;
+        const paddingY = 14;
+        const minBubbleW = 70;
+        const bubbleW = Math.max(minBubbleW, textWidth + paddingX * 2);
+        const bubbleH = fontSize + paddingY * 2;
+        const cornerRadius = 14;
+
+        // Bubble position
+        const bubbleX = px - bubbleW / 2;
+        const bubbleY = py - drawH + bobY - bubbleH - 16;
+
+        // Bubble bob
+        const bubbleBob = Math.sin(time * 2.0) * 2;
+        const by = bubbleY + bubbleBob;
+
+        // ===== Draw chat bubble shape =====
+        // A rounded rectangle bubble with a triangular tail pointing down
+        const tailWidth = 12;
+        const tailHeight = 10;
+
+        ctx.save();
+        ctx.beginPath();
+
+        // Rounded rectangle (top-left, top-right, bottom-right, bottom-left corners)
+        const bx = bubbleX;
+        const bBottom = by + bubbleH;
+        // Top-left corner
+        ctx.moveTo(bx + cornerRadius, by);
+        ctx.lineTo(bx + bubbleW - cornerRadius, by);
+        ctx.arcTo(bx + bubbleW, by, bx + bubbleW, by + cornerRadius, cornerRadius);
+        // Top-right corner
+        ctx.lineTo(bx + bubbleW, bBottom - cornerRadius);
+        ctx.arcTo(bx + bubbleW, bBottom, bx + bubbleW - cornerRadius, bBottom, cornerRadius);
+        // Bottom-right to tail start
+        ctx.lineTo(px + tailWidth / 2, bBottom);
+        // Tail triangle (pointing down to NPC)
+        ctx.lineTo(px, bBottom + tailHeight);
+        ctx.lineTo(px - tailWidth / 2, bBottom);
+        // Bottom-left corner
+        ctx.lineTo(bx + cornerRadius, bBottom);
+        ctx.arcTo(bx, bBottom, bx, bBottom - cornerRadius, cornerRadius);
+        // Left side
+        ctx.lineTo(bx, by + cornerRadius);
+        ctx.arcTo(bx, by, bx + cornerRadius, by, cornerRadius);
+
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(8, 14, 32, 0.82)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(180, 210, 240, 0.35)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        ctx.restore();
+
+        // ===== Draw bubble text =====
+        if (npcDialogIndex >= 0 && npcDialogIndex < npcDialogMessages.length) {
+          const textAlpha = Math.min(1, npcDialogAlpha);
+          ctx.font = `600 ${fontSize}px "FreePixel", monospace`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+          ctx.shadowBlur = 4;
+          ctx.fillStyle = `rgba(255, 240, 210, ${textAlpha.toFixed(3)})`;
+          ctx.fillText(bubbleText, bubbleX + bubbleW / 2, by + bubbleH / 2);
+          ctx.shadowBlur = 0;
+        } else if (npcDialogIndex < 0) {
+          // Blank bubble: animated dots
+          const dotR = 3;
+          const dotSpacing = 10;
+          const bubbleCx = bubbleX + bubbleW / 2;
+          const bubbleCy = by + bubbleH / 2;
+          const dotsStartX = bubbleCx - 1 * dotSpacing;
+          const dotBaseY = bubbleCy;
+          for (let i = 0; i < 3; i++) {
+            const dotPhase = Math.sin(time * 3.0 + i * 0.8);
+            const dotAlpha = 0.25 + 0.45 * (0.5 + 0.5 * dotPhase);
+            const dotOffY = dotPhase * 2.5;
+            ctx.beginPath();
+            ctx.arc(dotsStartX + i * dotSpacing, dotBaseY + dotOffY, dotR, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(180, 210, 240, ${dotAlpha.toFixed(3)})`;
+            ctx.fill();
+          }
+        }
+
+        // Click hint (subtle pulse around NPC)
+        const hintPulse = 0.5 + 0.5 * Math.sin(time * 2.5);
+        ctx.beginPath();
+        ctx.arc(px, py - drawH / 2 + bobY, drawW / 2 + 8, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 210, 140, ${(0.15 * hintPulse).toFixed(3)})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.restore();
       }
 
       // Optional sphere glow + outline (only when sphere is visible)
       function drawGlobeChrome(cx, cy, radius) {
         const t = progress;
-        if (t > 0.7) return;
+        if (t > 0.5) return;
         const alpha = 1 - clamp(t / 0.7, 0, 1);
         // Soft outer glow
         const gradient = ctx.createRadialGradient(cx, cy, radius * 0.8, cx, cy, radius * 1.5);
@@ -1218,20 +2056,20 @@
         // Sphere center (page 1)
         const sphereCx = width * 0.58;
         const sphereCy = height * 0.5;
-        // Flat-map center (page 2): centered horizontally, with a slight upward shift for the label
-        const flatCx = width * 0.5;
-        const flatCy = height * 0.52;
+        // Flat-map center (page 2): shifted right to avoid overlapping left UI
+        const flatCx = width * 0.54;
+        const flatCy = height * 0.5;
 
         // Camera follows the blend
         const e = transitionEase();
         const cx = lerp(sphereCx, flatCx, e);
         const cy = lerp(sphereCy, flatCy, e);
 
-        // Flat-map scale: fit China bounds to ~75% of the smaller dimension
-        const lonSpan = CHINA_BOUNDS.maxLon - CHINA_BOUNDS.minLon;
-        const latSpan = CHINA_BOUNDS.maxLat - CHINA_BOUNDS.minLat;
-        const fitW = (minDim * 0.78) / lonSpan;
-        const fitH = (height * 0.68) / latSpan;
+        // Flat-map scale: zoom into Beijing–Shanghai–Anhui–Zhejiang region
+        const CHINA_LON_SPAN = CHINA_BOUNDS.maxLon - CHINA_BOUNDS.minLon;
+        const CHINA_LAT_SPAN = CHINA_BOUNDS.maxLat - CHINA_BOUNDS.minLat;
+        const fitW = (width * 0.82) / CHINA_LON_SPAN;
+        const fitH = (height * 0.88) / CHINA_LAT_SPAN;
         const mapScale = Math.min(fitW, fitH);
 
         return { cx, cy, radius, mapScale, mapCx: flatCx, mapCy: flatCy };
@@ -1250,7 +2088,7 @@
         if (transitionDirection < 0 && progress < 0.18 && visualPage !== 0) {
           visualPage = 0;
           updatePageUI();
-        } else if (transitionDirection > 0 && progress > 0.56 && visualPage !== 1) {
+        } else if (transitionDirection > 0 && progress > 0.28 && visualPage < 1) {
           visualPage = 1;
           updatePageUI();
         }
@@ -1258,16 +2096,16 @@
 
         ctx.clearRect(0, 0, width, height);
 
-        // Stars: fade out a bit on the map page for clarity
-        const starAlpha = 1 - 0.42 * smoothRange(0.12, 0.92, progress);
+        // Stars: fade out completely on the map page
+        const starAlpha = 1 - smoothRange(0.1, 0.7, progress);
         drawStars(starAlpha);
 
         const view = computeViewParams();
 
         drawGlobeChrome(view.cx, view.cy, view.radius);
 
-        // Grid lines: visible on sphere, fade out completely on flat map
-        const gridAlpha = 1 - smoothRange(0.16, 0.7, progress);
+        // Grid lines: visible on sphere, fade out quickly before flat map
+        const gridAlpha = 1 - smoothRange(0.02, 0.15, progress);
         if (gridAlpha > 0.01) {
           const baseAlpha = 0.18 * gridAlpha;
           for (let i = 0; i < LAT_LINES; i++) {
@@ -1288,8 +2126,10 @@
           }
         }
 
-        // Other countries: fade out as we approach the flat map
-        const otherAlpha = (1 - smoothRange(0.18, 0.74, progress)) * 0.5;
+        // Other countries: fade during transition, subtle on flat map
+        const otherAlphaSphere = (1 - smoothRange(0.18, 0.74, progress)) * 0.5;
+        const otherAlphaFlat = smoothRange(0.5, 0.85, progress) * 0.06;
+        const otherAlpha = otherAlphaSphere + otherAlphaFlat;
         if (otherAlpha > 0.01) {
           for (const outline of countryOutlines) {
             drawBlendedLine(outline, view, {
@@ -1298,7 +2138,7 @@
               frontAlpha: otherAlpha,
               backAlpha: 0,
               drawBack: false,
-              strictSphereDepth: true
+              strictSphereDepth: progress < 0.5
             });
           }
         }
@@ -1308,10 +2148,14 @@
         drawGlobeProvinceOutlines(view);
         drawProvinceOutlines(view);
         drawAnhuiHighlight(view);
+        drawCityOutlines(view);
+        drawFuyangCityHighlight(view);
 
         // City highlights (sphere) + focus city (flat)
         drawCityPoints(view);
         drawFocusCity(view);
+        drawCityCastles(view);
+        drawHighlightCityIcons(view);
 
         // Globe rotation behavior
         const TWO_PI = Math.PI * 2;
@@ -1339,7 +2183,17 @@
 
       // Start: load data then animate
       loadGeoData().then(() => {
-        draw();
+        updateLoadingBar(95);
+        // Wait for fonts to be ready before revealing
+        const reveal = () => {
+          hideLoadingScreen();
+          draw();
+        };
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(reveal);
+        } else {
+          setTimeout(reveal, 100);
+        }
       });
     })();
   </script>
